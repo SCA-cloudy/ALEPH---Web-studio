@@ -1,0 +1,41 @@
+[
+  {
+    "id": "tpl_sample_1",
+    "name": "샘플-공지형",
+    "text": "9월 정기 점검 안내",
+    "x": 50,
+    "y": 85,
+    "fontSize": 8,
+    "color": "#ffffff",
+    "stroke": true,
+    "image": null,
+    "imageName": null,
+    "updatedAt": "2026-09-01T00:00:00.000Z"
+  },
+  {
+    "id": "tpl_sample_2",
+    "name": "샘플-밈형",
+    "text": "월요일의\n나",
+    "x": 50,
+    "y": 20,
+    "fontSize": 12,
+    "color": "#111111",
+    "stroke": true,
+    "image": null,
+    "imageName": null,
+    "updatedAt": "2026-09-02T00:00:00.000Z"
+  },
+  {
+    "id": "tpl_sample_3",
+    "name": "샘플-인용구",
+    "text": "\"작게 시작해도 괜찮다\"",
+    "x": 50,
+    "y": 50,
+    "fontSize": 6,
+    "color": "#ffe082",
+    "stroke": false,
+    "image": null,
+    "imageName": null,
+    "updatedAt": "2026-09-03T00:00:00.000Z"
+  }
+]

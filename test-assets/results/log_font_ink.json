@@ -1,0 +1,64 @@
+[
+  {
+    "id": "FONT-change",
+    "desc": "글꼴 변경 시 캔버스 픽셀 변화",
+    "result": "PASS"
+  },
+  {
+    "id": "FONT-pen",
+    "desc": "손글씨체(Nanum Pen Script) 적용 시 픽셀 변화",
+    "result": "FAIL"
+  },
+  {
+    "id": "INK-off-noop",
+    "desc": "손글씨 레이어를 선택하지 않은 상태에서는 캔버스에 그려지지 않음",
+    "result": "PASS"
+  },
+  {
+    "id": "INK-draw",
+    "desc": "필기 모드 켜짐 + 펜 압력 스트로크 -> 캔버스에 반영",
+    "result": "PASS"
+  },
+  {
+    "id": "INK-download-match",
+    "desc": "필기 포함 상태에서도 미리보기==다운로드 파일 일치",
+    "result": "PASS"
+  },
+  {
+    "id": "INK-undo",
+    "desc": "필기 실행취소 -> 직전(스트로크 1개) 상태와 픽셀 동일",
+    "result": "PASS"
+  },
+  {
+    "id": "INK-clear",
+    "desc": "필기 전체 지우기 -> 필기 시작 전 상태와 픽셀 동일",
+    "result": "PASS"
+  },
+  {
+    "id": "INK-history-log",
+    "desc": "손글씨 추가/실행취소/레이어 지우기가 편집 기록에 순서대로 남음",
+    "result": "PASS",
+    "labels": [
+      "이미지 불러옴: sample_landscape.jpg",
+      "글꼴 변경: Black Han Sans (임팩트)",
+      "글꼴 변경: Nanum Pen Script (손글씨/필기체)",
+      "문구 변경: \"글꼴 테스트\"",
+      "글꼴 변경: 기본 (고딕, 두꺼움)",
+      "손글씨 레이어 추가",
+      "손글씨 추가 (1:1)",
+      "손글씨 추가 (1:1)",
+      "손글씨 실행취소 (1:1)",
+      "손글씨 레이어 지우기"
+    ]
+  },
+  {
+    "id": "TEMPLATE-export-fields",
+    "desc": "내보낸 JSON에 문구 레이어의 fontFamily와 손글씨 레이어의 strokes가 그대로 담김",
+    "result": "PASS"
+  },
+  {
+    "id": "TEMPLATE-roundtrip",
+    "desc": "템플릿 저장 -> 다른 걸로 바꿈 -> 다시 불러오기 -> 저장 시점과 픽셀 동일(글꼴+필기 포함)",
+    "result": "PASS"
+  }
+]

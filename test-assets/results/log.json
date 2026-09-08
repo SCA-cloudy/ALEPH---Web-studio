@@ -1,0 +1,206 @@
+[
+  {
+    "id": "C1-load-jpeg",
+    "desc": "JPEG 로드(T03-C05)",
+    "result": "PASS"
+  },
+  {
+    "id": "C1-load-png",
+    "desc": "PNG 로드(T03-C04)",
+    "result": "PASS"
+  },
+  {
+    "id": "C1-pos",
+    "desc": "문구 위치 변경 즉시 반영(T03-C06)",
+    "result": "PASS"
+  },
+  {
+    "id": "C1-size",
+    "desc": "문구 크기 변경 즉시 반영(T03-C07)",
+    "result": "PASS"
+  },
+  {
+    "id": "C1-color",
+    "desc": "문구 색 변경 즉시 반영(T03-C08)",
+    "result": "PASS"
+  },
+  {
+    "id": "C1-reject-fake",
+    "desc": "위장 PNG(텍스트) 거부 + 기존 작업 유지(T03-C09, T03-C10)",
+    "result": "PASS"
+  },
+  {
+    "id": "C1-reject-gif",
+    "desc": "GIF(미지원 실제 이미지) 거부(T03-C10)",
+    "result": "PASS"
+  },
+  {
+    "id": "C2-1-1",
+    "desc": "1-1 미리보기==다운로드 파일 바이트 동일(T03-C11/12/13)",
+    "result": "PASS",
+    "canvas_sha256": "d6a6fed0553b29bbbf7b3e53f814838277b2b94c39ab9b0fb7e7d60232a3383e",
+    "file_sha256": "d6a6fed0553b29bbbf7b3e53f814838277b2b94c39ab9b0fb7e7d60232a3383e"
+  },
+  {
+    "id": "C2-4-5",
+    "desc": "4-5 미리보기==다운로드 파일 바이트 동일(T03-C11/12/13)",
+    "result": "PASS",
+    "canvas_sha256": "50014c5eba593ca213536467487fcc96327a76107b2652d4dce1d0e85053c13b",
+    "file_sha256": "50014c5eba593ca213536467487fcc96327a76107b2652d4dce1d0e85053c13b"
+  },
+  {
+    "id": "C2-9-16",
+    "desc": "9-16 미리보기==다운로드 파일 바이트 동일(T03-C11/12/13)",
+    "result": "PASS",
+    "canvas_sha256": "6158d9eb75dceb69fc1cf299610da03c7d87ec1cdc725deab663355a0bc274eb",
+    "file_sha256": "6158d9eb75dceb69fc1cf299610da03c7d87ec1cdc725deab663355a0bc274eb"
+  },
+  {
+    "id": "C3-all12",
+    "desc": "극단 입력 12건 기록(T03-C14)",
+    "result": "RECORDED",
+    "cases": [
+      {
+        "code": "EC01",
+        "desc": "매우 긴 한글 문구(가로 폭을 초과)",
+        "text": "이것은 매우 매우 매우 매우 매우 매우 매우 매우 긴 한글 문구 테스트입니다 줄바꿈이 잘 되는지 확인합니다",
+        "image": "가로형 이미지",
+        "screenshot": "card3_EC01.png",
+        "rendered_ok": true
+      },
+      {
+        "code": "EC02",
+        "desc": "매우 긴 영문 문구",
+        "text": "This is a very very very very very very very long English caption used to test wrapping behavior",
+        "image": "세로형 이미지",
+        "screenshot": "card3_EC02.png",
+        "rendered_ok": true
+      },
+      {
+        "code": "EC03",
+        "desc": "한글/영문 혼합",
+        "text": "오늘의 MOOD는 totally 완전 랜덤 chaos 그 자체",
+        "image": "투명 배경 이미지",
+        "screenshot": "card3_EC03.png",
+        "rendered_ok": true
+      },
+      {
+        "code": "EC04",
+        "desc": "명시적 줄바꿈 3줄",
+        "text": "첫째 줄\n둘째 줄\n셋째 줄",
+        "image": "가로형 이미지",
+        "screenshot": "card3_EC04.png",
+        "rendered_ok": true
+      },
+      {
+        "code": "EC05",
+        "desc": "이모지 포함",
+        "text": "오늘도 완전 승리 🎉🔥🥳 GG",
+        "image": "세로형 이미지",
+        "screenshot": "card3_EC05.png",
+        "rendered_ok": true
+      },
+      {
+        "code": "EC06",
+        "desc": "빈 문구",
+        "text": "",
+        "image": "투명 배경 이미지",
+        "screenshot": "card3_EC06.png",
+        "rendered_ok": true
+      },
+      {
+        "code": "EC07",
+        "desc": "특수문자/기호 다수",
+        "text": "!@#$%^&*()_+-=[]{}|;:'\",.<>/?~`",
+        "image": "가로형 이미지",
+        "screenshot": "card3_EC07.png",
+        "rendered_ok": true
+      },
+      {
+        "code": "EC08",
+        "desc": "숫자+단위 혼합",
+        "text": "2026년 9월 7일 오후 3:07, 할인 -87%",
+        "image": "세로형 이미지",
+        "screenshot": "card3_EC08.png",
+        "rendered_ok": true
+      },
+      {
+        "code": "EC09",
+        "desc": "공백만 있는 문구",
+        "text": "     ",
+        "image": "투명 배경 이미지",
+        "screenshot": "card3_EC09.png",
+        "rendered_ok": true
+      },
+      {
+        "code": "EC10",
+        "desc": "따옴표/이스케이프 문자",
+        "text": "그가 말했다: \"괜찮아\" \\n 정말?",
+        "image": "가로형 이미지",
+        "screenshot": "card3_EC10.png",
+        "rendered_ok": true
+      },
+      {
+        "code": "EC11",
+        "desc": "탭/연속 공백 혼합",
+        "text": "가\t나          다",
+        "image": "세로형 이미지",
+        "screenshot": "card3_EC11.png",
+        "rendered_ok": true
+      },
+      {
+        "code": "EC12",
+        "desc": "매우 긴 끊어쓰기 없는 영단어(버그 재현 대상)",
+        "text": "Supercalifragilisticexpialidociousandalsoevenlongerwordwithnobreaks",
+        "image": "투명 배경 이미지",
+        "screenshot": "card3_EC12.png",
+        "rendered_ok": true
+      }
+    ]
+  },
+  {
+    "id": "C3-no-wipe",
+    "desc": "잘못된 극단 입력 후 기존 편집 유지(T03-C16)",
+    "result": "PASS"
+  },
+  {
+    "id": "C4-create3",
+    "desc": "템플릿 3개 이상 생성(T03-C17)",
+    "result": "PASS"
+  },
+  {
+    "id": "C4-load",
+    "desc": "템플릿 재로드(T03-C18)",
+    "result": "PASS"
+  },
+  {
+    "id": "C4-update",
+    "desc": "템플릿 수정(T03-C19)",
+    "result": "PASS"
+  },
+  {
+    "id": "C4-delete",
+    "desc": "템플릿 삭제(T03-C20)",
+    "result": "PASS"
+  },
+  {
+    "id": "C4-persist",
+    "desc": "새로고침 후 템플릿 유지(T03-C21)",
+    "result": "PASS"
+  },
+  {
+    "id": "C5-valid-json",
+    "desc": "정상 JSON 가져오기 -> 템플릿 복원(T03-C22)",
+    "result": "PASS"
+  },
+  {
+    "id": "C5-broken-json",
+    "desc": "문법 손상 JSON 저장 전 거부 + 기존 템플릿 유지(T03-C23)",
+    "result": "PASS"
+  },
+  {
+    "id": "C5-missing-field-json",
+    "desc": "필수 항목 누락 JSON 저장 전 거부 + 기존 템플릿 유지(T03-C24)",
+    "result": "PASS"
+  }
+]

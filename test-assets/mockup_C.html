@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8" />
+<style>
+:root{--bg:#f5f5f7;--panel:#fff;--border:#e0e0e6;--text:#1b1b1f;--muted:#6b6b76;--accent:#3d5afe;--radius:10px}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,"Apple SD Gothic Neo","Segoe UI",Roboto,"Noto Sans KR",sans-serif;background:var(--bg);color:var(--text)}
+.topbar{padding:16px 24px;background:var(--panel);border-bottom:1px solid var(--border)}
+.topbar h1{margin:0 0 4px;font-size:20px}
+.subtitle{margin:0 0 12px;color:var(--muted);font-size:13px}
+.toolbar{display:flex;gap:20px;align-items:flex-end;padding:14px 20px;background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);margin:0 24px;flex-wrap:wrap}
+.tgroup{display:flex;flex-direction:column;gap:4px;min-width:140px}
+.tgroup label{font-size:11px;color:var(--muted)}
+.tgroup .dz{border:2px dashed var(--border);border-radius:8px;padding:8px;text-align:center;font-size:12px;color:var(--muted)}
+input[type=range]{width:140px}
+input[type=color]{width:60px;height:28px;border:1px solid var(--border);border-radius:6px}
+textarea{width:220px;font-size:13px;padding:6px;border:1px solid var(--border);border-radius:6px}
+.stage{display:flex;padding:20px 24px;gap:0;position:relative}
+.center{flex:1;display:flex;justify-content:center}
+.bigpreview{background:repeating-conic-gradient(#eee 0% 25%,#fff 0% 50%) 50%/16px 16px;border:1px solid var(--border);border-radius:8px;padding:12px}
+.bigpreview img{max-height:560px;display:block;border-radius:4px}
+.drawer{width:60px;background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);display:flex;flex-direction:column;align-items:center;padding:12px 0;gap:8px;margin-left:16px;writing-mode:vertical-rl;font-size:13px;color:var(--muted);cursor:pointer}
+.drawer.open{width:260px;writing-mode:horizontal-tb;align-items:stretch;padding:14px}
+.drawer.open h3{font-size:13px;margin:0 0 10px;color:var(--muted)}
+.tmpl{border:1px solid var(--border);border-radius:8px;padding:8px 10px;font-size:12px;margin-bottom:8px}
+button{padding:8px 14px;border-radius:6px;border:1px solid var(--border);background:#fff;font-size:13px}
+.note{margin:16px 24px 0;font-size:12px;color:var(--muted);background:#fff8e1;border:1px solid #ffe08280;padding:10px 14px;border-radius:8px}
+</style></head>
+<body>
+<header class="topbar"><h1>짤·카드 스튜디오 — 시안 C</h1><p class="subtitle">상단 툴바(이미지·문구 조작) + 중앙 큰 미리보기 + 우측 슬라이드 템플릿 드로어</p></header>
+<div class="toolbar">
+  <div class="tgroup"><label>이미지</label><div class="dz">PNG/JPEG 업로드</div></div>
+  <div class="tgroup"><label>문구</label><textarea rows="1">가을 신메뉴 출시</textarea></div>
+  <div class="tgroup"><label>가로 위치</label><input type="range" value="50"></div>
+  <div class="tgroup"><label>세로 위치</label><input type="range" value="85"></div>
+  <div class="tgroup"><label>글자 크기</label><input type="range" value="30"></div>
+  <div class="tgroup"><label>글자 색</label><input type="color" value="#ffffff"></div>
+</div>
+<p class="note">※ 이 화면은 비교용 정적 시안입니다. 조작 UI가 상단 가로 툴바로 올라가 미리보기가 가장 크게 보이고, 템플릿은 오른쪽 세로 탭을 누르면 펼쳐지는 드로어입니다(지금은 펼쳐진 상태로 표시).</p>
+<div class="stage">
+  <div class="center"><div class="bigpreview"><img src="../test-assets/finished/finished_1_1x1.png" /></div></div>
+  <div class="drawer open">
+    <h3>저장된 템플릿</h3>
+    <div class="tmpl">템플릿A · 가을 신메뉴 출시</div>
+    <div class="tmpl">템플릿B · 오늘의 한마디</div>
+    <div class="tmpl">템플릿C · 월요일의 나</div>
+    <button>+ 새 템플릿으로 저장</button>
+  </div>
+</div>
+</body></html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Quiplet — 짤·카드 스튜디오</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&family=Do+Hyeon&family=Gaegu:wght@400;700&family=Nanum+Pen+Script&family=Poor+Story&family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+      <path d="M5 7 h22 a2 2 0 0 1 2 2 v10 a2 2 0 0 1 -2 2 h-13 l-6 5 v-5 h-3 a2 2 0 0 1 -2 -2 v-10 a2 2 0 0 1 2 -2 z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      <g transform="translate(25 6)" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+        <line x1="0" y1="-4" x2="0" y2="4"/>
+        <line x1="-4" y1="0" x2="4" y2="0"/>
+      </g>
+    </svg>
+    <h1>Quiplet</h1>
+  </div>
+  <p class="subtitle">이미지 위에 위트 있는 한마디를 얹어 밈·카드·SNS 이미지를 만들고 파일로 내려받습니다. 로그인이 필요 없습니다.</p>
+  <div class="theme-toggle" role="group" aria-label="화면 테마">
+    <button type="button" id="themeLightBtn">☀️ 라이트</button>
+    <button type="button" id="themeDarkBtn">🌙 다크</button>
+  </div>
+</header>
+
+<main class="layout">
+
+  <!-- 좌측: 조작 패널 -->
+  <section class="panel controls" aria-label="이미지·문구 조작">
+    <h2>1. 이미지</h2>
+    <div class="dropzone" id="dropzone" tabindex="0">
+      <p>PNG 또는 JPEG 파일을 여기로 끌어오거나 클릭해서 선택하세요.</p>
+      <input type="file" id="fileInput" accept=".png,.jpg,.jpeg,image/png,image/jpeg" hidden />
+    </div>
+    <p id="fileError" class="error" role="alert" hidden></p>
+    <p id="fileInfo" class="hint"></p>
+
+    <h2>2. 문구</h2>
+    <div class="layer-bar">
+      <div id="layerChips" class="layer-chips"></div>
+      <div class="layer-actions">
+        <button id="dupLayerBtn" type="button" title="현재 레이어를 복사해 새 레이어로 추가">+ 복사</button>
+        <button id="addInkLayerBtn" type="button" title="타이핑 대신 직접 손으로 써서/그려서 넣는 새 레이어 추가">+ 손글씨</button>
+        <button id="addShapeLayerBtn" type="button" title="하트·별·폭죽 같은 장식 도형(벡터) 레이어 추가">+ 도형</button>
+        <button id="delLayerBtn" type="button" title="현재 레이어 삭제" class="danger">삭제</button>
+      </div>
+    </div>
+    <p class="hint">레이어로 나눠 관리합니다. "+ 복사"는 복제, "+ 손글씨"는 직접 쓰는 레이어, "+ 도형"은 장식 도형 레이어 추가.</p>
+
+    <div id="textLayerControls">
+      <label for="textInput">내용 (Enter로 줄바꿈 가능)</label>
+      <textarea id="textInput" rows="3" placeholder="문구를 입력하세요"></textarea>
+      <p class="hint">가로·세로 위치는 가운데 미리보기 아래 "위치" 패널에서, 화면을 보면서 바로 조절하세요.</p>
+
+      <div class="field-row">
+        <label for="fontSize">글자 크기 <span id="fontSizeVal"></span></label>
+        <input type="range" id="fontSize" min="3" max="20" value="8" />
+      </div>
+      <div class="field-row">
+        <label>글자 색</label>
+        <div id="textColorControl" class="color-control"></div>
+      </div>
+      <div class="field-row">
+        <label for="fontFamily">글꼴</label>
+        <select id="fontFamily">
+          <option value="default">기본 (고딕, 두꺼움)</option>
+          <option value="notosans">Noto Sans KR</option>
+          <option value="blackhan">Black Han Sans (임팩트)</option>
+          <option value="jua">Jua (동글동글)</option>
+          <option value="dohyeon">Do Hyeon</option>
+          <option value="gaegu">Gaegu (손글씨)</option>
+          <option value="pen">Nanum Pen Script (손글씨/필기체)</option>
+          <option value="poorstory">Poor Story (손글씨)</option>
+        </select>
+      </div>
+      <div class="field-row">
+        <label for="strokeToggle"><input type="checkbox" id="strokeToggle" checked /> 테두리(가독성) 넣기</label>
+      </div>
+    </div>
+
+    <div id="inkLayerControls" hidden>
+      <p class="hint" title="마우스 클릭·드래그, 터치, 애플펜슬·와콤펜 등 압력 지원 펜 모두 브라우저 표준 Pointer Events로 지원합니다.">
+        캔버스에 마우스로 클릭·드래그하거나 펜(압력 지원)으로 그리세요.</p>
+      <div class="field-row">
+        <label for="inkColor">펜 색</label>
+        <input type="color" id="inkColor" value="#ff2d55" />
+      </div>
+      <div class="field-row">
+        <label for="inkWidth">펜 굵기 <span id="inkWidthVal"></span></label>
+        <input type="range" id="inkWidth" min="1" max="30" value="6" />
+      </div>
+      <div class="field-row">
+        <button id="inkUndoBtn" type="button">마지막 선 취소</button>
+      </div>
+      <div class="field-row">
+        <button id="inkClearBtn" type="button">이 레이어 지우기</button>
+      </div>
+      <div class="field-row">
+        <label for="inkRecognizeLang">인식 언어</label>
+        <select id="inkRecognizeLang">
+          <option value="kor+eng">한국어 + 영어 (기본)</option>
+          <option value="kor">한국어만</option>
+          <option value="eng">영어만</option>
+          <option value="jpn">일본어</option>
+          <option value="chi_sim">중국어(간체)</option>
+          <option value="chi_tra">중국어(번체)</option>
+        </select>
+      </div>
+      <div class="field-row">
+        <button id="inkRecognizeBtn" type="button" title="선택한 언어 기준으로 인식합니다. 결과는 확인 후 수정해주세요. 언어를 처음 쓸 때는 인식 데이터를 내려받느라 시간이 걸릴 수 있습니다.">손글씨 인식 → 문구로 변환</button>
+      </div>
+      <p id="inkRecognizeStatus" class="hint" hidden></p>
+    </div>
+
+    <div id="shapeLayerControls" hidden>
+      <p class="hint">하트·별·폭죽 같은 장식 도형입니다(글자가 아니라 캔버스에 직접 그리는 벡터 도형이라
+        크기를 키워도 흐려지지 않습니다).</p>
+      <div class="field-row">
+        <label for="shapeKind">모양</label>
+        <select id="shapeKind">
+          <option value="heart">🩷 하트</option>
+          <option value="star">⭐ 별</option>
+          <option value="firework">🎆 폭죽</option>
+        </select>
+      </div>
+      <div class="field-row">
+        <label>색</label>
+        <div id="shapeColorControl" class="color-control"></div>
+      </div>
+      <p class="hint">가로·세로 위치는 가운데 미리보기 아래 "위치" 패널에서, 화면을 보면서 바로 조절하세요.</p>
+      <div class="field-row">
+        <label for="shapeSize">크기 <span id="shapeSizeVal"></span></label>
+        <input type="range" id="shapeSize" min="3" max="40" value="14" />
+      </div>
+      <div class="field-row">
+        <label for="shapeRotation">회전 <span id="shapeRotationVal"></span></label>
+        <input type="range" id="shapeRotation" min="-180" max="180" value="0" />
+      </div>
+    </div>
+
+    <!-- 기능 추가(+) : 기본은 접혀 있고, 필요한 것만 켜서 씁니다(문구 레이어에만 적용) -->
+    <button id="featureMenuBtn" type="button" class="add-feature-btn">+ 기능 추가 (회전 · 그림자 · 네온)</button>
+    <div id="featureMenu" class="feature-menu" hidden>
+      <label><input type="checkbox" id="featRotation" /> 회전</label>
+      <label><input type="checkbox" id="featShadow" /> 그림자</label>
+      <label><input type="checkbox" id="featNeon" /> 네온 글씨</label>
+    </div>
+
+    <div id="rotationBlock" class="feature-block" hidden>
+      <h2>회전 (선택한 문구 레이어)</h2>
+      <div class="field-row">
+        <label for="rotation">각도 <span id="rotationVal"></span></label>
+        <input type="range" id="rotation" min="-180" max="180" value="0" />
+      </div>
+    </div>
+
+    <div id="shadowBlock" class="feature-block" hidden>
+      <h2>그림자 (선택한 문구 레이어)</h2>
+      <div class="field-row">
+        <label for="shadowColor">그림자 색</label>
+        <input type="color" id="shadowColor" value="#000000" />
+      </div>
+      <div class="field-row">
+        <label for="shadowBlur">번짐 정도 <span id="shadowBlurVal"></span></label>
+        <input type="range" id="shadowBlur" min="0" max="30" value="10" />
+      </div>
+    </div>
+
+    <div id="neonBlock" class="feature-block" hidden>
+      <h2>네온 글씨 (선택한 문구 레이어)</h2>
+      <div class="field-row">
+        <label for="neonColor">네온 색</label>
+        <input type="color" id="neonColor" value="#00eaff" />
+      </div>
+    </div>
+  </section>
+
+  <!-- 중앙: 미리보기 (3비율 동시) + 위치 조정 -->
+  <div class="center-col">
+    <section class="panel previews" aria-label="미리보기">
+      <h2>미리보기 (1:1 / 4:5 / 9:16 동시 비교)</h2>
+      <div class="preview-grid" id="previewGrid">
+        <!-- JS가 canvas 3개를 채웁니다 -->
+      </div>
+    </section>
+
+    <!-- 화면을 보면서 바로 조절할 수 있도록 위치 슬라이더만 미리보기 바로 아래에 둡니다. -->
+    <section class="panel position-panel" id="positionPanel" aria-label="위치 조정">
+      <h2>위치</h2>
+      <p class="hint" id="positionPanelHint">선택된 레이어: <strong id="positionPanelLayerName">-</strong></p>
+
+      <div id="positionControlsText">
+        <div class="field-row">
+          <label for="posX">가로 위치 <span id="posXVal"></span></label>
+          <input type="range" id="posX" min="0" max="100" value="50" />
+        </div>
+        <div class="field-row">
+          <label for="posY">세로 위치 <span id="posYVal"></span></label>
+          <input type="range" id="posY" min="0" max="100" value="85" />
+        </div>
+      </div>
+
+      <div id="positionControlsShape" hidden>
+        <div class="field-row">
+          <label for="shapeX">가로 위치 <span id="shapeXVal"></span></label>
+          <input type="range" id="shapeX" min="0" max="100" value="50" />
+        </div>
+        <div class="field-row">
+          <label for="shapeY">세로 위치 <span id="shapeYVal"></span></label>
+          <input type="range" id="shapeY" min="0" max="100" value="50" />
+        </div>
+      </div>
+
+      <p class="hint" id="positionPanelNone" hidden>손글씨 레이어는 캔버스에 그린 위치 그대로 표시되어 별도 위치 슬라이더가 없습니다.</p>
+    </section>
+  </div>
+
+  <!-- 우측: 템플릿(저장/업데이트/내보내기/가져오기 + 목록) + 편집 기록 -->
+  <aside class="panel templates" aria-label="템플릿과 편집 기록">
+    <h2>템플릿</h2>
+    <div class="field-row">
+      <button id="saveTemplateBtn" type="button">현재 상태를 새 템플릿으로 저장</button>
+    </div>
+    <div class="field-row">
+      <button id="updateTemplateBtn" type="button" disabled>불러온 템플릿 업데이트</button>
+    </div>
+    <div class="field-row">
+      <button id="exportJsonBtn" type="button">템플릿 전체를 JSON으로 내보내기</button>
+    </div>
+    <div class="field-row">
+      <label for="importJsonInput" class="filebtn">JSON 파일 가져오기(복원)
+        <input type="file" id="importJsonInput" accept=".json,application/json" hidden />
+      </label>
+    </div>
+    <p id="jsonError" class="error" role="alert" hidden></p>
+    <p id="jsonInfo" class="hint" hidden></p>
+
+    <h2>저장된 템플릿</h2>
+    <ul id="templateList" class="template-list"></ul>
+    <p id="templateEmpty" class="hint">아직 저장된 템플릿이 없습니다.</p>
+
+    <h2>편집 기록</h2>
+    <p class="hint">이미지·문구·위치·크기·색을 바꿀 때마다 순서대로 남습니다. 예전 기록을 클릭하면 그 시점 상태로 돌아가 이어서 편집할 수 있습니다(포토샵 히스토리와 비슷합니다). 새로고침하면 초기화됩니다 — 계속 남기고 싶은 상태는 템플릿으로 저장하세요.</p>
+    <div class="field-row">
+      <button id="addHistoryBtn" type="button">현재 상태를 기록에 추가</button>
+    </div>
+    <ol id="historyList" class="history-list"></ol>
+    <p id="historyEmpty" class="hint">아직 기록이 없습니다.</p>
+  </aside>
+
+</main>
+
+<footer class="foot">
+  <p>모든 처리는 이 브라우저 안에서만 이루어집니다. 이미지·템플릿은 서버로 전송되지 않습니다.</p>
+</footer>
+
+<!-- 손글씨 인식(OCR)용. 외부 CDN에서 불러오며, 실제로 쓰일 때(버튼 클릭 시)만 동작합니다. -->
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js" defer></script>
+<script src="app.js" defer></script>
+</body>
+</html>

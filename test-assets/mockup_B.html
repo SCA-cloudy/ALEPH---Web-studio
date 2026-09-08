@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8" />
+<style>
+:root{--bg:#f5f5f7;--panel:#fff;--border:#e0e0e6;--text:#1b1b1f;--muted:#6b6b76;--accent:#3d5afe;--radius:10px}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,"Apple SD Gothic Neo","Segoe UI",Roboto,"Noto Sans KR",sans-serif;background:var(--bg);color:var(--text)}
+.topbar{padding:16px 24px;background:var(--panel);border-bottom:1px solid var(--border)}
+.topbar h1{margin:0 0 4px;font-size:20px}
+.subtitle{margin:0;color:var(--muted);font-size:13px}
+.layout{display:grid;grid-template-columns:320px 1fr;gap:16px;padding:16px 24px;align-items:start}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:0;overflow:hidden}
+.tabs{display:flex;border-bottom:1px solid var(--border)}
+.tab{flex:1;text-align:center;padding:12px;font-size:13px;color:var(--muted);cursor:pointer}
+.tab.active{color:var(--accent);font-weight:600;border-bottom:2px solid var(--accent);margin-bottom:-1px}
+.tabbody{padding:16px}
+.panel h2{font-size:14px;margin:0 0 10px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.panel h2:not(:first-child){margin-top:20px}
+.dropzone{border:2px dashed var(--border);border-radius:var(--radius);padding:20px 12px;text-align:center;font-size:13px;color:var(--muted)}
+label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}
+textarea{width:100%;font-family:inherit;font-size:14px;padding:8px;border:1px solid var(--border);border-radius:6px}
+.field-row{margin-top:12px}
+input[type=range]{width:100%}
+input[type=color]{width:100%;height:32px;border:1px solid var(--border);border-radius:6px}
+.preview-wrap{padding:16px}
+.ratio-tabs{display:flex;gap:8px;margin-bottom:12px}
+.ratio-tabs span{padding:6px 14px;border:1px solid var(--border);border-radius:20px;font-size:12px;color:var(--muted)}
+.ratio-tabs span.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.bigpreview{display:flex;justify-content:center;align-items:center;background:repeating-conic-gradient(#eee 0% 25%,#fff 0% 50%) 50%/16px 16px;border:1px solid var(--border);border-radius:8px;min-height:600px}
+.bigpreview img{max-height:600px;border-radius:4px}
+.dl-row{display:flex;gap:8px;margin-top:12px;justify-content:center}
+button{padding:9px 16px;border-radius:6px;border:1px solid var(--border);background:#fff;font-size:13px}
+.note{margin:0 24px 16px;font-size:12px;color:var(--muted);background:#fff8e1;border:1px solid #ffe08280;padding:10px 14px;border-radius:8px}
+</style></head>
+<body>
+<header class="topbar"><h1>짤·카드 스튜디오 — 시안 B</h1><p class="subtitle">2단 레이아웃: 좌측 조작(탭으로 템플릿 전환) + 우측 큰 미리보기(비율 탭 전환)</p></header>
+<p class="note">※ 이 화면은 비교용 정적 시안입니다. "조작" 탭이 선택된 상태이며, "템플릿" 탭을 누르면 같은 자리에 템플릿 목록이 나타나는 구조입니다. 미리보기는 한 번에 한 비율만 크게 보이고, 위 탭으로 전환합니다.</p>
+<main class="layout">
+  <section class="panel">
+    <div class="tabs"><div class="tab active">조작</div><div class="tab">템플릿</div></div>
+    <div class="tabbody">
+      <h2>1. 이미지</h2>
+      <div class="dropzone">PNG 또는 JPEG 파일을 여기로<br/>끌어오거나 클릭</div>
+      <h2>2. 문구</h2>
+      <label>내용</label>
+      <textarea rows="2">가을 신메뉴 출시</textarea>
+      <div class="field-row"><label>가로 위치</label><input type="range" value="50"></div>
+      <div class="field-row"><label>세로 위치</label><input type="range" value="85"></div>
+      <div class="field-row"><label>글자 크기</label><input type="range" value="30"></div>
+      <div class="field-row"><label>글자 색</label><input type="color" value="#ffffff"></div>
+    </div>
+  </section>
+  <section class="panel">
+    <div class="preview-wrap">
+      <div class="ratio-tabs"><span class="active">1:1</span><span>4:5</span><span>9:16</span></div>
+      <div class="bigpreview"><img src="../test-assets/finished/finished_1_1x1.png" /></div>
+      <div class="dl-row"><button>1:1 PNG 다운로드</button></div>
+    </div>
+  </section>
+</main>
+</body></html>
