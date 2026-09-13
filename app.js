@@ -1583,6 +1583,36 @@ function renderHistoryList() {
   });
 }
 
+// ---------- 히스토리 키보드 단축키(Ctrl+Z 되돌리기 / Ctrl+Shift+Z·Ctrl+Y 다시하기) ----------
+// 문구 입력창 등 편집 가능한 요소에 포커스가 있을 때는 브라우저 기본 되돌리기를 그대로 두고
+// 캔버스 히스토리(historyIndex)는 건드리지 않는다. 마우스로 기록 항목을 클릭하는 것과 같은
+// historyIndex 포인터를 공유하므로 restoreHistory()를 그대로 재사용한다(분기 잘림 로직 포함).
+
+function isEditableTarget(el) {
+  if (!el) return false;
+  const tag = el.tagName;
+  return tag === "INPUT" || tag === "TEXTAREA" || !!el.isContentEditable;
+}
+
+function bindHistoryShortcuts() {
+  document.addEventListener("keydown", (e) => {
+    const mod = e.ctrlKey || e.metaKey;
+    if (!mod) return;
+    const key = e.key.toLowerCase();
+    const isUndo = key === "z" && !e.shiftKey;
+    const isRedo = (key === "z" && e.shiftKey) || key === "y";
+    if (!isUndo && !isRedo) return;
+    if (isEditableTarget(e.target)) return;
+
+    e.preventDefault();
+    if (isUndo) {
+      if (historyIndex > 0) restoreHistory(historyIndex - 1);
+    } else if (isRedo) {
+      if (historyIndex < history.length - 1) restoreHistory(historyIndex + 1);
+    }
+  });
+}
+
 // ---------- JSON 내보내기 / 가져오기(복원) ----------
 
 function onExportJson() {
@@ -1763,6 +1793,7 @@ function init() {
   bindThemeToggle();
   buildPreviewGrid();
   bindControls();
+  bindHistoryShortcuts();
   syncControlsFromActiveLayer();
   renderLayerChips();
   renderTemplateList();
